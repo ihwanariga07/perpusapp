@@ -12,8 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bukus', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_buku'); // Primary Key
+            $table->string('judul_buku', 255);
+            $table->string('penulis', 255);
+            $table->unsignedBigInteger('kategori_id'); // Foreign Key
+            $table->string('cover_buku', 255)->nullable(); // simpan nama file gambar
             $table->timestamps();
+
+             // Relasi Foreign Key
+            $table->foreign('kategori_id')
+              ->references('id_kategori')
+              ->on('kategori_bukus')
+              ->onDelete('cascade');
         });
     }
 
